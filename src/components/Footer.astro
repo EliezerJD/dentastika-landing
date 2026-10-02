@@ -1,0 +1,26 @@
+---
+const year = new Date().getFullYear();
+---
+<footer>
+  <div class="wrap">
+    <div class="brand">
+      <a class="dt-logo" href="/">Dentastika</a>
+      <small>by Voltaic Software</small>
+    </div>
+    <nav aria-label="Pie de página">
+      <a href="#seguimiento">Seguimiento</a><a href="#funciones">Funciones</a><a href="#precios">Precios</a><a href="/privacidad">Aviso de privacidad</a><a href="/terminos">Términos</a><a href="mailto:hola@dentastika.com">Contacto</a>
+    </nav>
+    <span>© {year} Dentastika · Voltaic Software</span>
+  </div>
+</footer>
+
+<style>
+  footer { border-top: 1px solid var(--hairline); padding: 40px 0 56px; }
+  .wrap { display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: center; font: 500 13px/1.4 var(--font-sans); color: var(--ink-muted); }
+  .brand { display: flex; flex-direction: column; gap: 2px; }
+  .brand small { padding-left: 18px; font: 500 12px/1.2 var(--font-sans); color: var(--ink-muted); }
+  .dt-logo { font-size: 16px; }
+  nav { display: flex; flex-wrap: wrap; gap: 12px 28px; }
+  nav a { color: var(--ink-muted); text-decoration: none; transition: color .2s var(--ease); }
+  nav a:hover { color: var(--ink); }
+</style>

@@ -1,0 +1,17 @@
+---
+import { LOGIN_URL, WAITLIST_URL } from '../config';
+---
+<nav class="dt-nav" aria-label="Principal">
+  <a class="dt-logo" href="/">Dentastika</a>
+  <div class="dt-nav-links">
+    <a href="#funciones">Funciones</a>
+    <a href="#seguimiento">Seguimiento</a>
+    <a href="#portal">Portal</a>
+    <a href="#precios">Precios</a>
+    <a href="#preguntas">Preguntas</a>
+  </div>
+  <div class="dt-nav-actions">
+    <a href={LOGIN_URL}>Iniciar sesión</a>
+    <a class="dt-btn dt-btn-primary dt-btn-sm" href={WAITLIST_URL}>Lista de espera</a>
+  </div>
+</nav>

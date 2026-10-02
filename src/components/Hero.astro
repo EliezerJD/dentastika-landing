@@ -1,0 +1,29 @@
+---
+import AppWindow from './AppWindow.astro';
+import { WAITLIST_URL, DEMO_URL } from '../config';
+---
+<header class="hero wrap">
+  <span class="dt-badge dt-badge-brand dt-badge-plain">Próximamente</span>
+  <h1>Tu clínica dental,<br /><span>mejor organizada.</span></h1>
+  <p class="lead">Citas, pacientes, seguimientos, presupuestos e inventario. Sin papeles ni hojas de cálculo.</p>
+  <div class="cta-row">
+    <a class="dt-btn dt-btn-primary dt-btn-lg" href={WAITLIST_URL}>Únete a la lista de espera</a>
+    <a class="dt-btn dt-btn-link dt-btn-lg" href={DEMO_URL}>Agenda una demo</a>
+  </div>
+  <p class="note">En tu computadora y tu celular. Sin instalar nada.</p>
+  <div class="shot" data-reveal>
+    <AppWindow />
+  </div>
+</header>
+
+<style>
+  .hero { padding-top: clamp(64px, 9vw, 112px); text-align: center; }
+  h1 { margin: var(--space-6) auto 0; max-width: 1100px; font: 600 clamp(44px, 7.4vw, 88px)/1.02 var(--font-sans); letter-spacing: -0.045em; text-wrap: balance; }
+  h1 span { color: var(--ink-muted); }
+  .lead { max-width: 620px; margin-top: 28px; }
+  .cta-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: var(--space-3); margin-top: 40px; }
+  .note { margin: 18px 0 0; font: 500 13px/1.4 var(--font-sans); color: var(--ink-muted); }
+  .shot { position: relative; margin: clamp(48px, 7vw, 80px) auto 0; max-width: 1152px; }
+  .shot::before { content: ""; position: absolute; inset: 40% -80px -40px; background: radial-gradient(60% 60% at 50% 40%, var(--brand-soft), transparent 70%); z-index: -1; pointer-events: none; }
+  @media (min-width: 1200px) { .shot { margin-inline: -16px; } }
+</style>

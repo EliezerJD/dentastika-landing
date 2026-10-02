@@ -1,0 +1,34 @@
+---
+import { PLANS } from '../config';
+---
+<section class="section wrap center" id="precios">
+  <p class="eyebrow">Precios</p>
+  <h2 class="h-display">Un plan para cada clínica.</h2>
+  <p class="lead">Precios muy pronto. Las primeras clínicas tendrán condiciones especiales.</p>
+  <div class="plans">
+    {PLANS.map((p) => (
+      <div class:list={['dt-plan', { 'dt-plan-featured': p.featured }]} data-reveal>
+        <div class="dt-plan-head">
+          <h3 class="dt-plan-name">{p.name}</h3>
+          {p.featured && <span class="dt-badge dt-badge-brand dt-badge-plain">Más completo</span>}
+        </div>
+        <p class="dt-plan-desc">{p.desc}</p>
+        <div class="dt-plan-price">
+          <span class="dt-plan-amount soon">Próximamente</span>
+        </div>
+        <p class="dt-plan-per">Precio de lanzamiento.</p>
+        <a class:list={['dt-btn', p.featured ? 'dt-btn-primary' : 'dt-btn-secondary']} href={p.href}>{p.cta}</a>
+        <ul>{p.features.map((f) => <li>{f}</li>)}</ul>
+      </div>
+    ))}
+  </div>
+  <p class="fine">Las funciones pueden ajustarse antes del lanzamiento.</p>
+</section>
+
+<style>
+  .plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); margin-top: 56px; text-align: left; align-items: start; }
+  .dt-plan-amount.soon { font-size: 34px; letter-spacing: -0.03em; color: var(--ink-muted); }
+  .dt-plan-price + .dt-plan-per { margin: calc(var(--space-6) * -0.6) 0 0; }
+  .fine { margin: 28px 0 0; font: 500 13px/1.4 var(--font-sans); color: var(--ink-muted); }
+  @media (max-width: 900px) { .plans { grid-template-columns: 1fr; max-width: 480px; margin-inline: auto; } }
+</style>

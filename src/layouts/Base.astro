@@ -1,0 +1,60 @@
+---
+import '../styles/tokens.css';
+import '../styles/global.css';
+import '../styles/motion.css';
+
+interface Props { title?: string; description?: string; }
+const {
+  title = 'Dentastika: organiza tu clínica dental y no pierdas de vista a tus pacientes',
+  description = 'Agenda, seguimiento automático de pacientes, presupuestos e inventario para tu clínica dental. Tus pacientes confirman sus citas desde el celular. Únete a la lista de espera.',
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+  </head>
+  <body>
+    <slot />
+    <script>
+      // Aparición suave al hacer scroll. Se repite cada vez que el elemento vuelve a entrar en pantalla.
+      const timers = new WeakMap<Element, number>();
+      // Entra: cuando ya se ve al menos un poco por encima del borde inferior
+      const enter = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (!e.isIntersecting || e.target.classList.contains('is-in')) continue;
+          const el = e.target;
+          el.classList.add('is-in');
+          // Al terminar la entrada, quita retrasos para que el hover responda al instante
+          timers.set(el, window.setTimeout(() => el.classList.add('is-done'), 1600));
+        }
+      }, { rootMargin: '0px 0px -10% 0px' });
+      // Sale: solo cuando ya no se ve nada, para que no parpadee
+      const leave = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) continue;
+          clearTimeout(timers.get(e.target));
+          e.target.classList.remove('is-in', 'is-done');
+        }
+      });
+      document.querySelectorAll('[data-reveal]').forEach((el) => { enter.observe(el); leave.observe(el); });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+---
+const steps = [
+  { n: '01', t: 'Configura tu clínica.', d: 'Doctores, horarios, logo y colores.' },
+  { n: '02', t: 'Trae a tus pacientes.', d: 'Desde Excel. Te ayudamos.' },
+  { n: '03', t: 'Atiende.', d: 'Del resto se encarga Dentastika.' },
+];
+---
+<section class="inverse center" id="como-empezar" data-reveal>
+  <div class="wrap">
+    <p class="eyebrow">Cómo empezar</p>
+    <h2 class="h-display">Menos pendientes.<br />Más pacientes.</h2>
+    <p class="lead">Sin instalaciones. Sin capacitaciones eternas.</p>
+    <ol class="steps">
+      {steps.map((s) => <li><b>{s.n}</b><h3>{s.t}</h3><p>{s.d}</p></li>)}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .inverse { width: min(1216px, 100% - 2 * var(--space-4)); margin: clamp(96px, 12vw, 144px) auto 0; padding: clamp(72px, 10vw, 120px) 0; border-radius: var(--radius-xl); background: var(--ink); color: var(--ink-inverse); }
+  .inverse .wrap { width: min(1120px, 100% - 2 * var(--space-8)); }
+  .eyebrow, .lead { color: var(--ink-inverse-muted); }
+  .steps { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; margin: 80px 0 0; text-align: left; }
+  .steps b { display: block; font: 500 15px/1 var(--font-mono); color: var(--ink-inverse-muted); padding-bottom: 20px; border-bottom: 1px solid color-mix(in srgb, var(--ink-inverse) 20%, transparent); }
+  .steps h3 { margin: 24px 0 10px; font: 600 24px/1.2 var(--font-sans); letter-spacing: -0.018em; }
+  .steps p { margin: 0; font: 400 17px/1.5 var(--font-sans); color: var(--ink-inverse-muted); }
+  @media (max-width: 760px) { .steps { grid-template-columns: 1fr; gap: 40px; margin-top: 56px; } }
+</style>

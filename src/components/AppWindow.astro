@@ -1,0 +1,134 @@
+---
+// Vista del producto: agenda del día por doctor + seguimientos pendientes. Es HTML/CSS, no una imagen:
+// se ve nítida en cualquier pantalla y respeta el modo oscuro.
+const HOUR = 64;
+const top = (h: number) => (h - 9) * HOUR + 4;
+const doctors = [
+  { name: 'Dra. Ruiz', role: 'Odontología general', appts: [
+    { who: 'Ana Torres', at: '9:00', h: 9, dur: 0.9, what: 'Limpieza' },
+    { who: 'Mariana López', at: '10:30', h: 10.5, dur: 1.4, what: 'Confirmada', sel: true },
+    { who: 'Jorge Díaz', at: '13:00', h: 13, dur: 0.9, what: 'Valoración', tone: 'alt' },
+  ]},
+  { name: 'Dr. Salas', role: 'Ortodoncia', appts: [
+    { who: 'Carlos Herrera', at: '9:30', h: 9.5, dur: 1.9, what: 'Por confirmar', tone: 'warm' },
+    { who: 'Sofía Ramos', at: '12:00', h: 12, dur: 0.9, what: 'Control' },
+    { who: 'Luis Ortega', at: '14:00', h: 14, dur: 0.9, what: 'Revisión' },
+  ]},
+  { name: 'Dra. Méndez', role: 'Odontología general', appts: [
+    { who: 'Elena Castro', at: '10:00', h: 10, dur: 1.4, what: 'Valoración', tone: 'alt' },
+    { who: 'Diego Vargas', at: '12:30', h: 12.5, dur: 1.4, what: 'Confirmada' },
+  ]},
+];
+const today = [
+  { label: 'Citas', value: '14' },
+  { label: 'Por confirmar', value: '2', tone: 'w' },
+  { label: 'Seguimientos', value: '3' },
+  { label: 'Saldos pendientes', value: '4' },
+];
+---
+<div class="win" role="img" aria-label="Vista de Dentastika: agenda del día por doctor y resumen de la clínica">
+  <aside class="side" aria-hidden="true">
+    <span class="dt-logo">Dentastika</span>
+    <span class="nav"><svg viewBox="0 0 16 16"><path d="M2 7.5 8 2.5l6 5M3.5 6.5v7h9v-7"/></svg>Inicio</span>
+    <span class="nav on"><svg viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="11" rx="2.5"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3"/></svg>Agenda</span>
+    <span class="nav"><svg viewBox="0 0 16 16"><circle cx="8" cy="5.5" r="2.8"/><path d="M2.5 14c.8-2.6 3-4 5.5-4s4.7 1.4 5.5 4"/></svg>Pacientes</span>
+    <span class="nav"><svg viewBox="0 0 16 16"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9M13.5 2.5v3h-3"/></svg>Seguimientos</span>
+    <span class="nav"><svg viewBox="0 0 16 16"><path d="M2.5 5 8 2l5.5 3v6L8 14l-5.5-3zM2.5 5 8 8m0 0 5.5-3M8 8v6"/></svg>Inventario</span>
+    <span class="nav"><svg viewBox="0 0 16 16"><path d="m3 8.5 3 3 7-7"/></svg>Tareas</span>
+    <span class="spacer"></span>
+    <span class="me"><span class="avatar">LR</span>Dra. Lucía Ruiz</span>
+  </aside>
+
+  <div class="main" aria-hidden="true">
+    <div class="main-head">
+      <div><strong>Viernes 25</strong><small>Septiembre · 14 citas · 2 por confirmar</small></div>
+      <div class="seg"><span>Día</span><span class="on">Doctores</span><span>Semana</span></div>
+    </div>
+    <div class="cal">
+      <div class="corner"></div>
+      {doctors.map((c, i) => <div class:list={['cal-h', { c3: i === 2 }]}><b>{c.name}</b>{c.role}</div>)}
+      <div class="hours">{[9,10,11,12,13,14,15].map((h) => <span>{h}:00</span>)}</div>
+      {doctors.map((c, i) => (
+        <div class:list={['col', { c3: i === 2 }]}>
+          {c.appts.map((a, j) => (
+            <div class:list={['appt', a.tone, { sel: a.sel }]} style={`top:${top(a.h)}px;height:${a.dur * HOUR - 8}px;--i:${i + j * 3}`}>
+              <b>{a.who}</b><span class="t">{a.at}</span> · {a.what}
+            </div>
+          ))}
+        </div>
+      ))}
+      <div class="now" style={`top:${top(12.8) + 36}px`}></div>
+    </div>
+  </div>
+
+  <div class="panel" aria-hidden="true">
+    <div class="panel-t">Hoy <span>Viernes 25</span></div>
+    <div class="stats">
+      {today.map((t) => <div><b class:list={['dt-num', t.tone]}>{t.value}</b><small>{t.label}</small></div>)}
+    </div>
+    <div class="alerts">
+      <div><span class="dot w"></span>Guantes M: quedan 2 cajas</div>
+      <div><span class="dot"></span>Corona de laboratorio llega el jueves</div>
+      <div><span class="dot"></span>Confirmar citas del viernes</div>
+    </div>
+    <span class="dt-btn dt-btn-brand">Nueva cita</span>
+  </div>
+</div>
+
+<style>
+  .win { display: grid; grid-template-columns: 200px 1fr 300px; height: 620px; border-radius: var(--radius-xl); background: var(--surface-raised); box-shadow: var(--shadow-float); overflow: hidden; text-align: left; }
+  .side { padding: 20px 14px; background: var(--surface-sunken); display: flex; flex-direction: column; gap: 2px; }
+  .side .dt-logo { font-size: 16px; padding: 4px 10px 20px; }
+  .nav { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: var(--radius-sm); font: 500 14px/1 var(--font-sans); color: var(--ink-muted); }
+  .nav.on { background: var(--surface-raised); color: var(--ink); box-shadow: var(--shadow-card); }
+  .nav svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .spacer { flex: 1; }
+  .me { display: flex; align-items: center; gap: 10px; padding: 10px; font: 500 13px/1.2 var(--font-sans); }
+  .avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--enamel); color: var(--ink); display: grid; place-items: center; font: 600 12px/1 var(--font-sans); flex: none; }
+
+  .main { padding: 24px 28px; display: flex; flex-direction: column; min-width: 0; border-right: 1px solid var(--hairline); }
+  .main-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
+  .main-head strong { display: block; font: 600 24px/1.2 var(--font-sans); letter-spacing: -0.02em; }
+  .main-head small { display: block; margin-top: 4px; font: 500 13px/1.2 var(--font-sans); color: var(--ink-muted); }
+  .seg { display: flex; padding: 3px; border-radius: var(--radius-pill); background: var(--surface-sunken); }
+  .seg span { padding: 6px 12px; border-radius: var(--radius-pill); font: 500 12px/1 var(--font-sans); color: var(--ink-muted); }
+  .seg span.on { background: var(--surface-raised); color: var(--ink); box-shadow: var(--shadow-card); }
+  .cal { position: relative; flex: 1; margin-top: 20px; display: grid; grid-template-columns: 44px repeat(3, minmax(0, 1fr)); grid-template-rows: auto 1fr; column-gap: 8px; }
+  .cal-h { font: 500 12px/1.2 var(--font-sans); color: var(--ink-muted); padding-bottom: 12px; display: flex; align-items: center; gap: 8px; white-space: nowrap; overflow: hidden; height: 36px; box-sizing: border-box; }
+  .cal-h b { color: var(--ink); font-weight: 600; }
+  .hours { display: grid; grid-template-rows: repeat(7, 64px); }
+  .hours span { font: 500 11px/1 var(--font-mono); color: var(--ink-muted); transform: translateY(-5px); }
+  .col { position: relative; background-image: repeating-linear-gradient(to bottom, var(--hairline) 0 1px, transparent 1px 64px); }
+  .appt { position: absolute; left: 0; right: 0; padding: 8px 10px; border-radius: var(--radius-sm); background: var(--brand-soft); color: var(--brand-ink); font: 500 12px/1.3 var(--font-sans); overflow: hidden; transition: transform .3s var(--ease); }
+  .appt b { display: block; font-weight: 600; font-size: 13px; }
+  .appt .t { font-family: var(--font-mono); font-size: 11px; opacity: .85; }
+  .appt.alt { background: var(--surface-sunken); color: var(--ink); }
+  .appt.warm { background: var(--enamel); color: var(--ink); }
+  .appt.sel { box-shadow: 0 0 0 2px var(--brand); }
+  .now { position: absolute; left: 44px; right: 0; height: 2px; background: var(--danger); border-radius: 2px; z-index: 2; }
+  .now::before { content: ""; position: absolute; left: -4px; top: -3px; width: 8px; height: 8px; border-radius: 50%; background: var(--danger); }
+
+  .panel { padding: 24px 22px; display: flex; flex-direction: column; gap: 18px; }
+  .panel-t { display: flex; justify-content: space-between; align-items: baseline; font: 600 17px/1.2 var(--font-sans); letter-spacing: -0.01em; }
+  .panel-t span { font: 500 12px/1 var(--font-sans); color: var(--ink-muted); letter-spacing: 0; }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stats div { padding: 14px; border-radius: var(--radius-md); background: var(--surface-sunken); }
+  .stats b { display: block; font: 600 26px/1 var(--font-sans); letter-spacing: -0.03em; }
+  .stats b.w { color: var(--warning); }
+  .stats small { display: block; margin-top: 6px; font: 500 12px/1.2 var(--font-sans); color: var(--ink-muted); }
+  .alerts { display: grid; gap: 10px; padding-top: 4px; font: 500 12px/1.3 var(--font-sans); color: var(--ink-muted); }
+  .alerts div { display: flex; align-items: center; gap: 8px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand); flex: none; }
+  .dot.w { background: var(--warning); }
+  .panel .dt-btn { margin-top: auto; }
+
+  @media (max-width: 1080px) { .win { grid-template-columns: 180px 1fr; } .panel { display: none; } .main { border-right: 0; } }
+  @media (max-width: 760px) {
+    .win { grid-template-columns: 1fr; height: 540px; border-radius: var(--radius-lg); }
+    .side, .seg { display: none; }
+    .main { padding: 20px 16px; }
+    .cal { grid-template-columns: 36px repeat(2, minmax(0, 1fr)); }
+    .c3 { display: none; }
+    .now { left: 36px; }
+  }
+</style>

@@ -1,0 +1,92 @@
+/* Dentastika design tokens — generado desde el Design System (tokens.json).
+   Compártelo tal cual con la app Angular para que ambos lados usen los mismos valores. */
+
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  --surface: #fbfbfd;
+  --surface-raised: #ffffff;
+  --surface-sunken: #f5f5f7;
+  --ink: #1d1d1f;
+  --ink-muted: #6e6e73;
+  --ink-inverse: #fbfbfd;
+  --ink-inverse-muted: #a1a1a6;
+  --hairline: #d2d2d7;
+  --brand: #0a7a68;
+  --on-brand: #ffffff;
+  --brand-soft: #e4f4ef;
+  --brand-ink: #075446;
+  --enamel: #f2eee6;
+  --warning: #b25000;
+  --danger: #c4302b;
+  --focus: var(--brand);
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.05);
+  --shadow-float: 0 2px 6px rgba(0,0,0,0.04), 0 40px 80px -20px rgba(0,0,0,0.18);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --surface: #000000;
+    --surface-raised: #161617;
+    --surface-sunken: #1d1d1f;
+    --ink: #f5f5f7;
+    --ink-muted: #a1a1a6;
+    --ink-inverse: #000000;
+    --ink-inverse-muted: #6e6e73;
+    --hairline: #38383a;
+    --brand: #40d9b8;
+    --on-brand: #062a23;
+    --brand-soft: #0f2e28;
+    --brand-ink: #bfeee2;
+    --enamel: #2a2723;
+    --warning: #ffb35c;
+    --danger: #ff8a7a;
+    --focus: var(--brand);
+    --shadow-card: 0 0 0 1px rgba(255,255,255,0.06), 0 8px 24px rgba(0,0,0,0.5);
+    --shadow-float: 0 0 0 1px rgba(255,255,255,0.08), 0 40px 80px -20px rgba(0,0,0,0.8);
+  }
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --surface: #000000;
+  --surface-raised: #161617;
+  --surface-sunken: #1d1d1f;
+  --ink: #f5f5f7;
+  --ink-muted: #a1a1a6;
+  --ink-inverse: #000000;
+  --ink-inverse-muted: #6e6e73;
+  --hairline: #38383a;
+  --brand: #40d9b8;
+  --on-brand: #062a23;
+  --brand-soft: #0f2e28;
+  --brand-ink: #bfeee2;
+  --enamel: #2a2723;
+  --warning: #ffb35c;
+  --danger: #ff8a7a;
+  --focus: var(--brand);
+  --shadow-card: 0 0 0 1px rgba(255,255,255,0.06), 0 8px 24px rgba(0,0,0,0.5);
+  --shadow-float: 0 0 0 1px rgba(255,255,255,0.08), 0 40px 80px -20px rgba(0,0,0,0.8);
+}
+
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --space-32: 160px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+  --font-sans: Geist, -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+}

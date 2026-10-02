@@ -1,0 +1,32 @@
+---
+const faqs = [
+  { q: '¿Cuándo estará disponible?', a: 'Muy pronto. Estamos construyéndolo junto con dentistas. Únete a la lista de espera y te avisamos primero.' },
+  { q: '¿Necesito instalar algo?', a: 'No. Funciona en el navegador de tu computadora, tablet o celular.' },
+  { q: '¿Cómo funcionan los seguimientos?', a: 'Al terminar una cita eliges cuándo volver a contactar al paciente. Cuando llega la fecha, aparece en tu lista.' },
+  { q: '¿Puedo usar mi logo y mis colores?', a: 'Sí. Tus pacientes ven tu marca en su portal.' },
+  { q: '¿Puedo traer a mis pacientes actuales?', a: 'Sí. Desde Excel, y te ayudamos en el proceso.' },
+  { q: '¿Incluye expediente clínico?', a: 'Todavía no. Hoy nos enfocamos en la operación diaria de tu clínica. Lo clínico llegará después.' },
+];
+const jsonLd = {
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+<section class="section wrap center" id="preguntas">
+  <p class="eyebrow">Preguntas</p>
+  <h2 class="h-display">¿Tienes dudas?</h2>
+  <div class="faq">
+    {faqs.map((f, i) => <details open={i === 0}><summary>{f.q}</summary><p>{f.a}</p></details>)}
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</section>
+
+<style>
+  .faq { max-width: 760px; margin: 56px auto 0; text-align: left; }
+  details { border-bottom: 1px solid var(--hairline); }
+  summary { list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 24px 0; font: 600 19px/1.3 var(--font-sans); letter-spacing: -0.01em; cursor: pointer; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; flex: none; font: 400 26px/1 var(--font-sans); color: var(--ink-muted); transition: transform .3s var(--ease); }
+  details[open] summary::after { transform: rotate(45deg); }
+  details p { margin: -8px 0 24px; max-width: 640px; font: 400 17px/1.5 var(--font-sans); color: var(--ink-muted); }
+</style>

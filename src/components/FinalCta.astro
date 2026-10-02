@@ -1,0 +1,17 @@
+---
+import { WAITLIST_URL, DEMO_URL } from '../config';
+---
+<section class="final wrap" data-reveal>
+  <h2>Muy pronto<br />en tu clínica.</h2>
+  <p class="lead">Sé de las primeras en usar Dentastika.</p>
+  <div class="cta-row">
+    <a class="dt-btn dt-btn-primary dt-btn-lg" href={WAITLIST_URL}>Únete a la lista de espera</a>
+    <a class="dt-btn dt-btn-link dt-btn-lg" href={DEMO_URL}>Agenda una demo</a>
+  </div>
+</section>
+
+<style>
+  .final { padding: clamp(112px, 14vw, 160px) 0 clamp(96px, 12vw, 144px); text-align: center; }
+  h2 { margin: 0; font: 600 clamp(44px, 6vw, 72px)/1.03 var(--font-sans); letter-spacing: -0.042em; }
+  .cta-row { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-3); margin-top: 40px; }
+</style>
